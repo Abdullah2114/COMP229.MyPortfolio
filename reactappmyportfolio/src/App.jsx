@@ -11,7 +11,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div className="container">
+
+      <main className="container">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -19,7 +20,9 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </div>
+      </main>
+
+      <footer className="footer">© {new Date().getFullYear()} Abdullah Madani</footer>
     </BrowserRouter>
   );
 }
