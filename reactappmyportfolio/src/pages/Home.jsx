@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <section className="card">
-      <h1 style={{ marginTop: 0 }}>Hi, I’m Abdullah Madani </h1>
+    <section className="card pageEnter">
+      <h1 style={{ marginTop: 0 }}>Hi, I Am Abdullah Madani </h1>
       <p style={{ color: "rgba(233,238,247,0.75)" }}>
         I am a Software Engineering student focused on building clean and responsive web applications.
       </p>

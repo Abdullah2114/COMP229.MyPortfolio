@@ -16,7 +16,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="card">
+    <section className="card pageEnter">
       <h1 style={{ marginTop: 0 }}>Contact Me</h1>
       <p style={{ color: "rgba(233,238,247,0.75)" }}>
         Feel free to send me a message using the form below.

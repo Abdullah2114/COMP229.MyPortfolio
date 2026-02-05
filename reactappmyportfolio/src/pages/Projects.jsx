@@ -1,38 +1,62 @@
 export default function Projects() {
+  const projects = [
+    {
+      title: "Responsive Student Website",
+      img: "/project1.jpg",
+      role: "Frontend Developer",
+      desc: "Multi-page website using HTML/CSS/JavaScript that adapts to mobile, tablet, and desktop.",
+      outcome: "Built a clean, mobile-friendly layout.",
+      tags: ["HTML", "CSS", "JavaScript"],
+    },
+    {
+      title: "Student Data App",
+      img: "/project2.jpg",
+      role: "Logic & UI Developer",
+      desc: "A simple app that organizes and displays user-entered data clearly.",
+      outcome: "Improved readability using structured UI.",
+      tags: ["JavaScript", "UI", "Data"],
+    },
+    {
+      title: "React Portfolio Website",
+      img: "/project3.jpg",
+      role: "Full React Implementation",
+      desc: "Multi-page React portfolio with routing, navigation, and clean styling.",
+      outcome: "Prepared project for cloud deployment.",
+      tags: ["React", "Vite", "Router"],
+    },
+  ];
+
   return (
-    <div>
-      <h1>Projects</h1>
+    <section className="card pageEnter">
+      <h1 style={{ marginTop: 0 }}>Projects</h1>
+      <p style={{ color: "rgba(233,238,247,0.75)" }}>
+        Here are a few projects that show my progress in web development.
+      </p>
 
-      <div>
-        <img src="/project1.jpg" width="200" alt="Responsive Website" />
-        <p>
-          <strong>Project 1:</strong> Responsive Student Website <br />
-          Description: A multi-page website built with HTML, CSS, and JavaScript
-          that adapts to mobile, tablet, and desktop screens. <br />
-          Role: Frontend Developer <br />
-          Outcome: Built a mobile-friendly and clean website design.
-        </p>
-      </div>
+      <div className="projectsGrid">
+        {projects.map((p) => (
+          <div className="projectCard" key={p.title}>
+            <img className="projectImg" src={p.img} alt={p.title} />
+            <div className="projectBody">
+              <h3 style={{ margin: "6px 0" }}>{p.title}</h3>
+              <p style={{ margin: "6px 0", color: "rgba(233,238,247,0.75)" }}>
+                {p.desc}
+              </p>
+              <p style={{ margin: "8px 0" }}>
+                <strong>Role:</strong> {p.role}
+                <br />
+                <strong>Outcome:</strong> {p.outcome}
+              </p>
 
-      <div>
-        <img src="/project2.jpg" width="200" alt="Data App" />
-        <p>
-          <strong>Project 2:</strong> Student Data App <br />
-          Description: A web app that organizes and displays user-entered data. <br />
-          Role: Logic & UI Developer <br />
-          Outcome: Successfully organized and displayed data clearly.
-        </p>
+              <div className="tagRow">
+                {p.tags.map((t) => (
+                  <span className="tag" key={t}>{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div>
-        <img src="/project3.jpg" width="200" alt="Portfolio Site" />
-        <p>
-          <strong>Project 3:</strong> React Portfolio Website <br />
-          Description: A portfolio built using React with multiple pages and navigation. <br />
-          Role: Full React Implementation <br />
-          Outcome: Developed a multi-page React site and prepared it for deployment.
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }

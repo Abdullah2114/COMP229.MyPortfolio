@@ -146,3 +146,226 @@ input:focus, textarea:focus{
   padding: 18px 0 26px;
   color: var(--muted);
 }
+/* ---- Interaction polish ---- */
+.card {
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124,247,195,0.28);
+}
+
+.btn {
+  transition: transform 140ms ease, background 140ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0px);
+}
+
+/* Projects grid + cards */
+.projectsGrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+@media(min-width: 850px){
+  .projectsGrid{ grid-template-columns: repeat(3, 1fr); }
+}
+
+.projectCard{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+.projectCard:hover{
+  transform: translateY(-4px);
+  border-color: rgba(124,247,195,0.28);
+}
+
+.projectImg{
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display:block;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.projectBody{
+  padding: 14px;
+}
+
+.tagRow{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.tag{
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(233,238,247,0.85);
+}
+
+/* nicer inputs focus */
+input:focus, textarea:focus{
+  box-shadow: 0 0 0 3px rgba(124,247,195,0.15);
+}
+
+/* smooth page entrance */
+.pageEnter{
+  animation: fadeUp 240ms ease;
+}
+@keyframes fadeUp{
+  from{ opacity: 0; transform: translateY(6px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+
+/* ABOUT PAGE */
+.aboutSection {
+  padding: 60px 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.aboutCard {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: fadeUp 0.6s ease;
+}
+
+.aboutImage img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4fd1c5;
+}
+
+.aboutContent h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.aboutContent h2 {
+  color: #4fd1c5;
+  margin-bottom: 15px;
+}
+
+.aboutContent p {
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.aboutButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.btnPrimary {
+  background: #4fd1c5;
+  color: black;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+}
+
+.btnOutline {
+  border: 2px solid #4fd1c5;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+}
+
+.btnOutline:hover {
+  background: #4fd1c5;
+  color: black;
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SERVICES PAGE */
+.servicesSection {
+  padding: 60px 10%;
+}
+
+.pageTitle {
+  font-size: 42px;
+  margin-bottom: 25px;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.serviceCard {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(79, 209, 197, 0.25);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(79, 209, 197, 0.65);
+}
+
+.serviceIcon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.serviceCard h2 {
+  margin: 10px 0 12px;
+  font-size: 22px;
+}
+
+.serviceCard p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
