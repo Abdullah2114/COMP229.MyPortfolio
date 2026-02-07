@@ -22,7 +22,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer className="footer">© {new Date().getFullYear()} Abdullah Madani</footer>
+      <footer className="footer">© Abdullah Madani | COMP229</footer>
     </BrowserRouter>
   );
 }
