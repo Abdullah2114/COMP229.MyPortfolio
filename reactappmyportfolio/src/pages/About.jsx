@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function About() {
   return (
     <section className="aboutSection pageEnter">
@@ -23,9 +24,9 @@ export default function About() {
               Download Resume (PDF)
             </a>
 
-            <a href="/projects" className="btnOutline">
+            <Link to="/projects" className="btnOutline">
               View My Projects
-            </a>
+            </Link>
           </div>
 
         </div>
