@@ -17,6 +17,7 @@ import EditUser from "./pages/EditUser";
 import References from "./pages/References";
 import AddReference from "./pages/AddReference";
 import EditReference from "./pages/EditReference";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/add-reference" element={<AddReference />} />
           <Route path="/edit-reference/:id" element={<EditReference />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </main>
 
