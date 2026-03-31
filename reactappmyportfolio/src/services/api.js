@@ -129,3 +129,17 @@ export const deleteReference = async (id) => {
   });
   return res.json();
 };
+
+export const getReferenceById = async (id) => {
+  const res = await fetch(`${API_URL}/references/${id}`);
+  return res.json();
+};
+
+export const updateReference = async (id, data) => {
+  const res = await fetch(`${API_URL}/references/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};

@@ -15,6 +15,8 @@ import Users from "./pages/Users";
 import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import References from "./pages/References";
+import AddReference from "./pages/AddReference";
+import EditReference from "./pages/EditReference";
 
 export default function App() {
   return (
@@ -40,6 +42,8 @@ export default function App() {
 
           <Route path="/references" element={<References />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/add-reference" element={<AddReference />} />
+          <Route path="/edit-reference/:id" element={<EditReference />} />
         </Routes>
       </main>
 
