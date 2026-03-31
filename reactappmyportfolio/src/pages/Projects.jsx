@@ -1,57 +1,68 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getProjects, deleteProject } from "../services/api";
+
 export default function Projects() {
-  const projects = [
-    {
-      title: "Responsive Student Website",
-      img: "/project1.jpg",
-      role: "Frontend Developer",
-      desc: "Multi-page website using HTML/CSS/JavaScript that adapts to mobile, tablet, and desktop.",
-      outcome: "Built a clean, mobile-friendly layout.",
-      tags: ["HTML", "CSS", "JavaScript"],
-    },
-    {
-      title: "Student Data App",
-      img: "/project2.jpg",
-      role: "Logic & UI Developer",
-      desc: "A simple app that organizes and displays user-entered data clearly.",
-      outcome: "Improved readability using structured UI.",
-      tags: ["JavaScript", "UI", "Data"],
-    },
-    {
-      title: "React Portfolio Website",
-      img: "/project3.jpg",
-      role: "Full React Implementation",
-      desc: "Multi-page React portfolio with routing, navigation, and clean styling.",
-      outcome: "Prepared project for cloud deployment.",
-      tags: ["React", "Vite", "Router"],
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  async function loadProjects() {
+    try {
+      const res = await getProjects();
+      setProjects(res.data);
+    } catch (error) {
+      console.log("Error loading projects:", error);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await deleteProject(id);
+      setProjects(projects.filter((p) => p.id !== id));
+    } catch (error) {
+      console.log("Error deleting project:", error);
+    }
+  }
 
   return (
     <section className="card pageEnter">
       <h1 style={{ marginTop: 0 }}>Projects</h1>
       <p style={{ color: "rgba(233,238,247,0.75)" }}>
-        Here are a few projects that show my progress in web development.
+        Here are my projects from the database.
       </p>
+
+      <div style={{ marginBottom: 16 }}>
+        <Link to="/add-project" className="btn">Add Project</Link>
+      </div>
 
       <div className="projectsGrid">
         {projects.map((p) => (
-          <div className="projectCard" key={p.title}>
-            <img className="projectImg" src={p.img} alt={p.title} />
+          <div className="projectCard" key={p.id}>
             <div className="projectBody">
               <h3 style={{ margin: "6px 0" }}>{p.title}</h3>
+
               <p style={{ margin: "6px 0", color: "rgba(233,238,247,0.75)" }}>
-                {p.desc}
-              </p>
-              <p style={{ margin: "8px 0" }}>
-                <strong>Role:</strong> {p.role}
-                <br />
-                <strong>Outcome:</strong> {p.outcome}
+                {p.description}
               </p>
 
-              <div className="tagRow">
-                {p.tags.map((t) => (
-                  <span className="tag" key={t}>{t}</span>
-                ))}
+              <p style={{ margin: "8px 0" }}>
+                <strong>Completion:</strong>{" "}
+                {p.completion ? new Date(p.completion).toLocaleDateString() : ""}
+              </p>
+
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 12 }}>
+                <Link to={`/edit-project/${p.id}`} className="btn">Edit</Link>
+
+                <button
+                  onClick={() => handleDelete(p.id)}
+                  className="btn"
+                  type="button"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

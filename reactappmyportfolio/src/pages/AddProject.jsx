@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createReference } from "../services/api";
+import { createProject } from "../services/api";
 
-export default function Contact() {
+export default function AddProject() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
+    title: "",
+    completion: "",
+    description: "",
   });
 
   function handleChange(e) {
@@ -19,50 +19,49 @@ export default function Contact() {
     e.preventDefault();
 
     try {
-      await createReference(form);
-      navigate("/");
+      await createProject(form);
+      navigate("/projects");
     } catch (error) {
-      console.log("Error creating reference:", error);
+      console.log("Error creating project:", error);
     }
   }
 
   return (
     <section className="card pageEnter">
-      <h1 style={{ marginTop: 0 }}>Contact Me</h1>
-      <p style={{ color: "rgba(233,238,247,0.75)" }}>
-        Feel free to send me your information using the form below.
-      </p>
+      <h1 style={{ marginTop: 0 }}>Add Project</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="formGrid">
           <input
-            name="firstname"
-            placeholder="First Name"
-            value={form.firstname}
+            name="title"
+            placeholder="Project Title"
+            value={form.title}
             onChange={handleChange}
             required
           />
+
           <input
-            name="lastname"
-            placeholder="Last Name"
-            value={form.lastname}
+            name="completion"
+            type="date"
+            value={form.completion}
             onChange={handleChange}
             required
           />
         </div>
 
         <div style={{ marginTop: 12 }}>
-          <input
-            name="email"
-            placeholder="Email"
-            value={form.email}
+          <textarea
+            name="description"
+            placeholder="Description"
+            rows="5"
+            value={form.description}
             onChange={handleChange}
             required
           />
         </div>
 
         <button type="submit" className="btn" style={{ marginTop: 14 }}>
-          Submit
+          Add Project
         </button>
       </form>
     </section>

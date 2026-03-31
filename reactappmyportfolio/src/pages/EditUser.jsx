@@ -1,15 +1,37 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createReference } from "../services/api";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserById, updateUser } from "../services/api";
 
-export default function Contact() {
+export default function EditUser() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
     email: "",
+    password: "",
   });
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    try {
+      const res = await getUserById(id);
+      const item = res.data;
+
+      setForm({
+        firstname: item.firstname || "",
+        lastname: item.lastname || "",
+        email: item.email || "",
+        password: item.password || "",
+      });
+    } catch (error) {
+      console.log("Error loading user:", error);
+    }
+  }
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,19 +41,16 @@ export default function Contact() {
     e.preventDefault();
 
     try {
-      await createReference(form);
-      navigate("/");
+      await updateUser(id, form);
+      navigate("/users");
     } catch (error) {
-      console.log("Error creating reference:", error);
+      console.log("Error updating user:", error);
     }
   }
 
   return (
     <section className="card pageEnter">
-      <h1 style={{ marginTop: 0 }}>Contact Me</h1>
-      <p style={{ color: "rgba(233,238,247,0.75)" }}>
-        Feel free to send me your information using the form below.
-      </p>
+      <h1 style={{ marginTop: 0 }}>Edit User</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="formGrid">
@@ -51,7 +70,7 @@ export default function Contact() {
           />
         </div>
 
-        <div style={{ marginTop: 12 }}>
+        <div className="formGrid" style={{ marginTop: 12 }}>
           <input
             name="email"
             placeholder="Email"
@@ -59,10 +78,17 @@ export default function Contact() {
             onChange={handleChange}
             required
           />
+          <input
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <button type="submit" className="btn" style={{ marginTop: 14 }}>
-          Submit
+          Update User
         </button>
       </form>
     </section>
