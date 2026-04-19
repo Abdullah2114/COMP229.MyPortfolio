@@ -23,12 +23,13 @@ export default function SignIn() {
 
     try {
       const res = await signin(form);
+      console.log("signin response:", res);
 
-      if (res.success) {
+      if (res && res.success === true && res.token) {
         login(res.token, res.data);
         navigate("/dashboard");
       } else {
-        setMessage(res.message || "Sign in failed.");
+        setMessage(res?.message || "Sign in failed.");
       }
     } catch (error) {
       console.log("Error signing in:", error);

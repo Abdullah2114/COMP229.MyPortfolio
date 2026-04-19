@@ -1,5 +1,4 @@
-const API_URL = "https://comp229-portfolio-assignment2-backend.onrender.com/api";
-
+const API_URL = "http://localhost:3000/api";
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
 
