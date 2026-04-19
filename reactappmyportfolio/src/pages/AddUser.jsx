@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../services/api";
+import { signup } from "../services/api";
 
 export default function AddUser() {
   const navigate = useNavigate();
@@ -12,6 +12,8 @@ export default function AddUser() {
     password: "",
   });
 
+  const [message, setMessage] = useState("");
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -20,16 +22,22 @@ export default function AddUser() {
     e.preventDefault();
 
     try {
-      await createUser(form);
-      navigate("/users");
+      const res = await signup(form);
+
+      if (res.success) {
+        navigate("/signin");
+      } else {
+        setMessage(res.message || "Sign up failed.");
+      }
     } catch (error) {
       console.log("Error creating user:", error);
+      setMessage("Sign up failed.");
     }
   }
 
   return (
     <section className="card pageEnter">
-      <h1 style={{ marginTop: 0 }}>Add User</h1>
+      <h1 style={{ marginTop: 0 }}>Sign Up</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="formGrid">
@@ -52,6 +60,7 @@ export default function AddUser() {
         <div className="formGrid" style={{ marginTop: 12 }}>
           <input
             name="email"
+            type="email"
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
@@ -59,6 +68,7 @@ export default function AddUser() {
           />
           <input
             name="password"
+            type="password"
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
@@ -67,9 +77,15 @@ export default function AddUser() {
         </div>
 
         <button type="submit" className="btn" style={{ marginTop: 14 }}>
-          Add User
+          Create Account
         </button>
       </form>
+
+      {message && (
+        <p style={{ marginTop: 12, color: "#ff9b9b" }}>
+          {message}
+        </p>
+      )}
     </section>
   );
 }

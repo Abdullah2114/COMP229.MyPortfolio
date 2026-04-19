@@ -1,5 +1,33 @@
 const API_URL = "https://comp229-portfolio-assignment2-backend.onrender.com/api";
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` })
+  };
+};
+
+// ---------- AUTH ----------
+export const signup = async (data) => {
+  const res = await fetch(`${API_URL}/users/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};
+
+export const signin = async (data) => {
+  const res = await fetch(`${API_URL}/users/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};
+
 // ---------- PROJECTS ----------
 export const getProjects = async () => {
   const res = await fetch(`${API_URL}/projects`);
@@ -14,7 +42,7 @@ export const getProjectById = async (id) => {
 export const createProject = async (data) => {
   const res = await fetch(`${API_URL}/projects`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -23,7 +51,7 @@ export const createProject = async (data) => {
 export const updateProject = async (id, data) => {
   const res = await fetch(`${API_URL}/projects/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -32,6 +60,7 @@ export const updateProject = async (id, data) => {
 export const deleteProject = async (id) => {
   const res = await fetch(`${API_URL}/projects/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
   return res.json();
 };
@@ -50,7 +79,7 @@ export const getServiceById = async (id) => {
 export const createService = async (data) => {
   const res = await fetch(`${API_URL}/services`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -59,7 +88,7 @@ export const createService = async (data) => {
 export const updateService = async (id, data) => {
   const res = await fetch(`${API_URL}/services/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -68,6 +97,7 @@ export const updateService = async (id, data) => {
 export const deleteService = async (id) => {
   const res = await fetch(`${API_URL}/services/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
   return res.json();
 };
@@ -83,19 +113,10 @@ export const getUserById = async (id) => {
   return res.json();
 };
 
-export const createUser = async (data) => {
-  const res = await fetch(`${API_URL}/users`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-};
-
 export const updateUser = async (id, data) => {
   const res = await fetch(`${API_URL}/users/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -104,6 +125,7 @@ export const updateUser = async (id, data) => {
 export const deleteUser = async (id) => {
   const res = await fetch(`${API_URL}/users/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
   return res.json();
 };
@@ -114,10 +136,24 @@ export const getReferences = async () => {
   return res.json();
 };
 
+export const getReferenceById = async (id) => {
+  const res = await fetch(`${API_URL}/references/${id}`);
+  return res.json();
+};
+
 export const createReference = async (data) => {
   const res = await fetch(`${API_URL}/references`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};
+
+export const updateReference = async (id, data) => {
+  const res = await fetch(`${API_URL}/references/${id}`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   return res.json();
@@ -126,20 +162,7 @@ export const createReference = async (data) => {
 export const deleteReference = async (id) => {
   const res = await fetch(`${API_URL}/references/${id}`, {
     method: "DELETE",
-  });
-  return res.json();
-};
-
-export const getReferenceById = async (id) => {
-  const res = await fetch(`${API_URL}/references/${id}`);
-  return res.json();
-};
-
-export const updateReference = async (id, data) => {
-  const res = await fetch(`${API_URL}/references/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    headers: getAuthHeaders(),
   });
   return res.json();
 };

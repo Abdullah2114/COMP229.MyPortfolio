@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/signin");
+  }
+
   return (
     <header className="header">
       <div className="container navRow">
@@ -14,7 +23,24 @@ export default function Navbar() {
           <Link to="/projects">Projects</Link>
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/dashboard">Dashboard</Link>
+
+          {!token ? (
+            <>
+              <Link to="/add-user">Sign Up</Link>
+              <Link to="/signin">Sign In</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/dashboard">Dashboard</Link>
+              <button
+                onClick={handleLogout}
+                className="btn"
+                style={{ padding: "8px 14px" }}
+              >
+                Sign Out
+              </button>
+            </>
+          )}
         </nav>
       </div>
     </header>

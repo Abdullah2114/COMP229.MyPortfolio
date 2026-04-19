@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createProject } from "../services/api";
+import { signin } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
-export default function AddProject() {
+export default function SignIn() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [form, setForm] = useState({
-    title: "",
-    completion: "",
-    description: "",
+    email: "",
+    password: "",
   });
 
   const [message, setMessage] = useState("");
@@ -21,55 +22,46 @@ export default function AddProject() {
     e.preventDefault();
 
     try {
-      const res = await createProject(form);
+      const res = await signin(form);
 
       if (res.success) {
-        navigate("/projects");
+        login(res.token, res.data);
+        navigate("/dashboard");
       } else {
-        setMessage(res.message || "Error creating project.");
+        setMessage(res.message || "Sign in failed.");
       }
     } catch (error) {
-      console.log("Error creating project:", error);
-      setMessage("Error creating project.");
+      console.log("Error signing in:", error);
+      setMessage("Sign in failed.");
     }
   }
 
   return (
     <section className="card pageEnter">
-      <h1 style={{ marginTop: 0 }}>Add Project</h1>
+      <h1 style={{ marginTop: 0 }}>Sign In</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="formGrid">
           <input
-            name="title"
-            placeholder="Project Title"
-            value={form.title}
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
             onChange={handleChange}
             required
           />
-
           <input
-            name="completion"
-            type="date"
-            value={form.completion}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div style={{ marginTop: 12 }}>
-          <textarea
-            name="description"
-            placeholder="Description"
-            rows="5"
-            value={form.description}
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
             onChange={handleChange}
             required
           />
         </div>
 
         <button type="submit" className="btn" style={{ marginTop: 14 }}>
-          Add Project
+          Sign In
         </button>
       </form>
 

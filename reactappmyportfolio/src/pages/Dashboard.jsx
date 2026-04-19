@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
+  const { user } = useAuth();
+
   return (
     <section className="card pageEnter">
       <h1 style={{ marginTop: 0 }}>Dashboard</h1>
       <p style={{ color: "rgba(233,238,247,0.75)" }}>
-        Manage your portfolio content using the sections below.
+        Welcome{user ? `, ${user.firstname} ${user.lastname}` : ""}. Manage your portfolio content using the sections below.
       </p>
 
       <div
